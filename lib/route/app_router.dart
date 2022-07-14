@@ -4,18 +4,10 @@ import 'package:flashcard_app/pages/control_page.dart';
 import 'package:flashcard_app/pages/home_page.dart';
 import 'package:flashcard_app/pages/landing_page.dart';
 import 'package:flashcard_app/route/route_names.dart';
+import 'package:flashcard_app/values/app_styles.dart';
 import 'package:flutter/material.dart';
 
 class AppRouter {
-  static Route<dynamic> _errorRoute(String routeName) {
-    return MaterialPageRoute(
-        builder: (_) => Scaffold(
-              body: Center(
-                child: Text('Error! Could not redirect to $routeName...'),
-              ),
-            ));
-  }
-
   static Route<dynamic> generateRoute(RouteSettings settings) {
     final args = settings.arguments;
 
@@ -36,10 +28,10 @@ class AppRouter {
         if (args is List<EnglishToday>) {
           return MaterialPageRoute(builder: (_) => AllWordsPage(words: args));
         }
-        return _errorRoute(settings.name.toString());
+        return MaterialPageRoute(builder: (_) => const HomePage());
 
       default:
-        return _errorRoute(settings.name.toString());
+        return MaterialPageRoute(builder: (_) => const HomePage());
     }
 
     return MaterialPageRoute(builder: (_) => const HomePage());
