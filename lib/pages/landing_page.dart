@@ -1,8 +1,8 @@
+import 'package:flashcard_app/route/route_names.dart';
 import 'package:flashcard_app/values/app_assets.dart';
 import 'package:flashcard_app/values/app_colors.dart';
 import 'package:flashcard_app/values/app_styles.dart';
 import 'package:flutter/material.dart';
-import 'home_page.dart';
 
 class LandingPage extends StatelessWidget {
   const LandingPage({Key? key}) : super(key: key);
@@ -51,11 +51,12 @@ class LandingPage extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom: 100),
                 child: RawMaterialButton(
                   onPressed: () {
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(builder: (context) => HomePage()),
-                      (route) => false,
-                    );
+                    // Navigator.pushAndRemoveUntil(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => HomePage()),
+                    //   (route) => false,
+                    // );
+                    Navigator.of(context).pushNamed(RouteNames.homePage);
                   },
                   shape: const CircleBorder(),
                   fillColor: AppColors.lighBlue,

@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flashcard_app/models/english_today.dart';
 import 'package:flashcard_app/values/app_assets.dart';
 import 'package:flashcard_app/values/app_colors.dart';
@@ -26,32 +25,34 @@ class AllWordsPage extends StatelessWidget {
             onTap: () => Navigator.pop(context),
             child: Image.asset(AppAssets.leftArrow)),
       ),
-      body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-        child: GridView.count(
-          crossAxisCount: 2,
-          mainAxisSpacing: 8,
-          crossAxisSpacing: 8,
-          children: words
-              .map((e) => Container(
-                    alignment: Alignment.center,
-                    decoration: const BoxDecoration(
-                        color: AppColors.primaryColor,
-                        borderRadius: BorderRadius.all(Radius.circular(8))),
-                    child: AutoSizeText(
-                      e.noun ?? '',
-                      maxLines: 1,
-                      overflow: TextOverflow.fade,
-                      style: AppStyles.h3.copyWith(shadows: const [
-                        Shadow(
-                            color: Colors.black38,
-                            offset: Offset(3, 6),
-                            blurRadius: 6),
-                      ]),
-                    ),
-                  ))
-              .toList(),
-        ),
+      body: ListView.builder(
+        itemCount: words.length,
+        itemBuilder: (context, index) {
+          return Container(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            decoration: BoxDecoration(
+              color: (index % 2) == 0
+                  ? AppColors.primaryColor
+                  : AppColors.secondColor,
+              borderRadius: const BorderRadius.all(Radius.circular(8)),
+            ),
+            child: ListTile(
+              contentPadding: const EdgeInsets.all(16),
+              title: Text(
+                words[index].noun!,
+                style: (index % 2) == 0
+                    ? AppStyles.h4
+                    : AppStyles.h4.copyWith(color: AppColors.textColor),
+              ),
+              leading: Icon(Icons.favorite,
+                  color: words[index].isFavorite ? Colors.red : Colors.grey),
+              subtitle: Text(
+                words[index].quote ??
+                    'The quote for this word is not found in the system',
+              ),
+            ),
+          );
+        },
       ),
     );
   }

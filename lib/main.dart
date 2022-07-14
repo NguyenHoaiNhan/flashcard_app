@@ -1,8 +1,9 @@
-import 'package:flashcard_app/pages/landing_page.dart';
+import 'package:flashcard_app/route/app_router.dart';
+import 'package:flashcard_app/route/route_names.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -10,9 +11,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LandingPage(),
+      // home: LandingPage(),
+      initialRoute: RouteNames.landingPage,
+      onGenerateRoute: AppRouter.generateRoute,
     );
   }
 }

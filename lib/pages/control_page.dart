@@ -1,8 +1,5 @@
 import 'package:flashcard_app/values/app_colors.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../values/app_assets.dart';
@@ -51,9 +48,9 @@ class _ControlPageState extends State<ControlPage> {
         ),
         leading: InkWell(
           onTap: () async {
+            Navigator.pop(context);
             SharedPreferences prefs = await SharedPreferences.getInstance();
             await prefs.setInt(SharedKeys.counter, sliderValue.toInt());
-            Navigator.pop(context);
           },
           child: Image.asset(AppAssets.leftArrow),
         ),
