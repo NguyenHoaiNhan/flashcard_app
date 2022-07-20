@@ -1,8 +1,10 @@
 import 'package:flashcard_app/route/route_names.dart';
-import 'package:flashcard_app/values/app_assets.dart';
-import 'package:flashcard_app/values/app_colors.dart';
-import 'package:flashcard_app/values/app_styles.dart';
+import 'package:flashcard_app/config/app_assets.dart';
+import 'package:flashcard_app/config/app_colors.dart';
+import 'package:flashcard_app/config/app_styles.dart';
 import 'package:flutter/material.dart';
+
+import '../modules/oauth/google_oauth.dart';
 
 class LandingPage extends StatelessWidget {
   const LandingPage({Key? key}) : super(key: key);
@@ -51,12 +53,14 @@ class LandingPage extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom: 100),
                 child: RawMaterialButton(
                   onPressed: () {
-                    // Navigator.pushAndRemoveUntil(
-                    //   context,
-                    //   MaterialPageRoute(builder: (context) => HomePage()),
-                    //   (route) => false,
-                    // );
-                    Navigator.of(context).pushNamed(RouteNames.homePage);
+                    Future user = GoogleSignInApi.login();
+                    user.then((value) {
+                      print('Login successfully');
+                      Navigator.popAndPushNamed(context, RouteNames.homePage);
+                    }).catchError((onError) {
+                      print('Login failed!');
+                      Navigator.pushNamed(context, RouteNames.landingPage);
+                    });
                   },
                   shape: const CircleBorder(),
                   fillColor: AppColors.lighBlue,

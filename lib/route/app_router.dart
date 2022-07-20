@@ -3,8 +3,8 @@ import 'package:flashcard_app/pages/all_words_page.dart';
 import 'package:flashcard_app/pages/control_page.dart';
 import 'package:flashcard_app/pages/home_page.dart';
 import 'package:flashcard_app/pages/landing_page.dart';
+import 'package:flashcard_app/pages/signin_page.dart';
 import 'package:flashcard_app/route/route_names.dart';
-import 'package:flashcard_app/values/app_styles.dart';
 import 'package:flutter/material.dart';
 
 class AppRouter {
@@ -29,6 +29,9 @@ class AppRouter {
           return MaterialPageRoute(builder: (_) => AllWordsPage(words: args));
         }
         return MaterialPageRoute(builder: (_) => const HomePage());
+
+      case RouteNames.signInPage:
+        return MaterialPageRoute(builder: (_) => const SignInPage());
 
       default:
         return MaterialPageRoute(builder: (_) => const HomePage());

@@ -1,10 +1,10 @@
-import 'package:flashcard_app/values/app_colors.dart';
+import 'package:flashcard_app/config/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../values/app_assets.dart';
-import '../values/app_styles.dart';
-import '../values/shared_keys.dart';
+import '../config/app_assets.dart';
+import '../config/app_styles.dart';
+import '../config/shared_keys.dart';
 
 class ControlPage extends StatefulWidget {
   const ControlPage({Key? key}) : super(key: key);

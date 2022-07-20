@@ -1,10 +1,6 @@
-import 'package:flashcard_app/pages/control_page.dart';
-import 'package:flashcard_app/values/app_colors.dart';
-import 'package:flashcard_app/values/app_styles.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flashcard_app/config/app_colors.dart';
+import 'package:flashcard_app/config/app_styles.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class AppButton extends StatelessWidget {
   final String label;

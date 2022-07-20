@@ -1,7 +1,7 @@
 import 'package:flashcard_app/models/english_today.dart';
-import 'package:flashcard_app/values/app_assets.dart';
-import 'package:flashcard_app/values/app_colors.dart';
-import 'package:flashcard_app/values/app_styles.dart';
+import 'package:flashcard_app/config/app_assets.dart';
+import 'package:flashcard_app/config/app_colors.dart';
+import 'package:flashcard_app/config/app_styles.dart';
 import 'package:flutter/material.dart';
 
 class AllWordsPage extends StatelessWidget {
