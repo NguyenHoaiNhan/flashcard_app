@@ -56,7 +56,7 @@ class LandingPage extends StatelessWidget {
                     Future user = GoogleSignInApi.login();
                     user.then((value) {
                       print('Login successfully');
-                      Navigator.popAndPushNamed(context, RouteNames.homePage);
+                      Navigator.pushNamed(context, RouteNames.homePage);
                     }).catchError((onError) {
                       print('Login failed!');
                       Navigator.pushNamed(context, RouteNames.landingPage);

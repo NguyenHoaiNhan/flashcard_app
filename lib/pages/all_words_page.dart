@@ -2,7 +2,9 @@ import 'package:flashcard_app/models/english_today.dart';
 import 'package:flashcard_app/config/app_assets.dart';
 import 'package:flashcard_app/config/app_colors.dart';
 import 'package:flashcard_app/config/app_styles.dart';
+import 'package:flashcard_app/providers/english_today_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class AllWordsPage extends StatelessWidget {
   final List<EnglishToday> words;
@@ -36,20 +38,37 @@ class AllWordsPage extends StatelessWidget {
                   : AppColors.secondColor,
               borderRadius: const BorderRadius.all(Radius.circular(8)),
             ),
-            child: ListTile(
-              contentPadding: const EdgeInsets.all(16),
-              title: Text(
-                words[index].noun!,
-                style: (index % 2) == 0
-                    ? AppStyles.h4
-                    : AppStyles.h4.copyWith(color: AppColors.textColor),
-              ),
-              leading: Icon(Icons.favorite,
-                  color: words[index].isFavorite ? Colors.red : Colors.grey),
-              subtitle: Text(
-                words[index].quote ??
-                    'The quote for this word is not found in the system',
-              ),
+            child: Consumer<EnglishTodayProvider>(
+              builder: (context, value, child) {
+                var words = value.wordList;
+                return ListTile(
+                  contentPadding: const EdgeInsets.all(16),
+                  title: Text(
+                    words[index].noun!,
+                    style: (index % 2) == 0
+                        ? AppStyles.h4
+                        : AppStyles.h4.copyWith(color: AppColors.textColor),
+                  ),
+                  // leading: Icon(Icons.favorite,
+                  //     color:
+                  //         words[index].isFavorite ? Colors.red : Colors.grey),
+                  leading: IconButton(
+                    onPressed: () {
+                      context
+                          .read<EnglishTodayProvider>()
+                          .reactItem(index, words[index].isFavorite);
+                    },
+                    icon: Icon(
+                      Icons.favorite,
+                      color: words[index].isFavorite ? Colors.red : Colors.grey,
+                    ),
+                  ),
+                  subtitle: Text(
+                    words[index].quote ??
+                        'The quote for this word is not found in the system',
+                  ),
+                );
+              },
             ),
           );
         },
