@@ -1,12 +1,10 @@
-import 'dart:collection';
 import 'dart:math';
-
 import 'package:english_words/english_words.dart';
 import 'package:flashcard_app/models/english_today.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../config/shared_keys.dart';
+import '../modules/oxford_api/oxford_api.dart';
 
 class EnglishTodayProvider extends ChangeNotifier {
   final List<EnglishToday> wordList = [];
@@ -16,12 +14,43 @@ class EnglishTodayProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  // EnglishTodayProvider._create() {
+  //   print('Call private constructor!');
+  // }
+
+  // static Future<EnglishTodayProvider> create() async {
+  //   print('Call public constructor!');
+
+  //   var asyncItem = EnglishTodayProvider._create();
+
+  //   asyncItem.wordList = await contructList();
+
+  //   return asyncItem;
+  // }
+
   List<EnglishToday> get items => wordList;
 
   void reactItem(int index, bool react) {
     wordList[index].isFavorite = !react;
     notifyListeners();
   }
+
+  // static Future<List<EnglishToday>> contructList() async {
+  //   SharedPreferences pref = await SharedPreferences.getInstance();
+  //   int wordNum = pref.getInt(SharedKeys.counter) ?? 5;
+
+  //   List<EnglishToday> wordList = [];
+
+  //   // rans chứa danh sách các vị trí các word trong nouns
+  //   List<int> rans = fixedListRandom(len: wordNum, max: nouns.length);
+
+  //   for (var index in rans) {
+  //     var word = await OxfordAPI.getWordFromOxford(nouns[index]);
+  //     wordList.add(word);
+  //   }
+
+  //   return wordList;
+  // }
 
   void getEnglishTodayFromNouns() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
@@ -33,12 +62,12 @@ class EnglishTodayProvider extends ChangeNotifier {
     wordList.clear();
 
     for (var index in rans) {
-      wordList.add(EnglishToday(noun: nouns[index]));
+      var word = await OxfordAPI.getWordFromOxford(nouns[index]);
+      wordList.add(word);
+      print('Calling word: ' + word.noun.toString());
     }
 
     notifyListeners();
-
-    print("DANH SACH CO: " + wordList.length.toString());
   }
 
   static List<int> fixedListRandom({int len = 1, int max = 120, int min = 1}) {

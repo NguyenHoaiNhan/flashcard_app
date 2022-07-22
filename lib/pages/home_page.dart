@@ -66,17 +66,21 @@ class _HomePageState extends State<HomePage> {
           builder: (context, value, child) {
             var words = value.wordList;
             return Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 24),
                   height: size.height * 1 / 10,
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    '"It is amazing how complete is the delusion that beauty is goodness."',
+                    _currentIndex >= 5
+                        ? ''
+                        : '"' + words[_currentIndex].quote! + '"',
                     style: AppStyles.h5.copyWith(
-                      fontSize: 12,
+                      fontSize: 18,
                       color: AppColors.textColor,
                     ),
+                    textAlign: TextAlign.center,
                   ),
                 ),
                 Container(
@@ -136,34 +140,52 @@ class _HomePageState extends State<HomePage> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        LikeButton(
-                                          isLiked: words[index].isFavorite,
-                                          onTap: (bool isLike) async {
-                                            context
-                                                .read<EnglishTodayProvider>()
-                                                .reactItem(index, isLike);
-                                            return words[index].isFavorite;
-                                          },
+                                        Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          size: 42,
-                                          circleColor: const CircleColor(
-                                            start: Color(0xff00ddff),
-                                            end: Color(0xff0099cc),
-                                          ),
-                                          bubblesColor: const BubblesColor(
-                                            dotPrimaryColor: Color(0xff33b5e5),
-                                            dotSecondaryColor:
-                                                Color(0xff0099cc),
-                                          ),
-                                          likeBuilder: (bool isLiked) {
-                                            return ImageIcon(
-                                              AssetImage(AppAssets.heart),
-                                              color: isLiked
-                                                  ? Colors.red
-                                                  : Colors.white,
-                                            );
-                                          },
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            TextButton(
+                                              onPressed: () {},
+                                              child: Text(
+                                                '/' + words[index].ipa! + '/',
+                                                style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 20,
+                                                ),
+                                              ),
+                                            ),
+                                            LikeButton(
+                                              isLiked: words[index].isFavorite,
+                                              onTap: (bool isLike) async {
+                                                context
+                                                    .read<
+                                                        EnglishTodayProvider>()
+                                                    .reactItem(index, isLike);
+                                                return words[index].isFavorite;
+                                              },
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.end,
+                                              size: 42,
+                                              circleColor: const CircleColor(
+                                                start: Color(0xff00ddff),
+                                                end: Color(0xff0099cc),
+                                              ),
+                                              bubblesColor: const BubblesColor(
+                                                dotPrimaryColor:
+                                                    Color(0xff33b5e5),
+                                                dotSecondaryColor:
+                                                    Color(0xff0099cc),
+                                              ),
+                                              likeBuilder: (bool isLiked) {
+                                                return ImageIcon(
+                                                  AssetImage(AppAssets.heart),
+                                                  color: isLiked
+                                                      ? Colors.red
+                                                      : Colors.white,
+                                                );
+                                              },
+                                            ),
+                                          ],
                                         ),
                                         RichText(
                                           maxLines: 1,
@@ -207,8 +229,9 @@ class _HomePageState extends State<HomePage> {
                                           padding:
                                               const EdgeInsets.only(top: 24),
                                           child: AutoSizeText(
-                                            '"Think of all the beauty still left around you and be happy"',
-                                            maxFontSize: 26,
+                                            words[index].definition!,
+                                            maxFontSize: 22,
+                                            maxLines: 5,
                                             style: AppStyles.h4.copyWith(
                                               letterSpacing: 1,
                                               color: AppColors.textColor,
